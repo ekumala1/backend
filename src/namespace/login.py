@@ -20,15 +20,18 @@ class LoginUser(Resource):
 
         username = args.get('username')
         password = args.get('password')
+        pwd_hash = bcrypt.generate_password_hash(password)
 
-        pwd_hash = bcrypt.generate_password_hash(password).decode('utf-8')
-        print(pwd_hash)
         users = session.query(User).filter(
-            User.username == username, User.password == pwd_hash).all()
-
-        print(users)
+            User.username == username).all()
 
         if len(users) > 0:
-            print(users)
+            user = users[0]
+            correct = bcrypt.check_password_hash(user.password, password)
 
-        return {'response': 'success'}
+            if correct:
+                return {'response': 'success'}
+            else:
+                return {'response': 'bad password'}
+
+        return {'response': 'no user found'}

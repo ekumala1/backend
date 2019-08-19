@@ -32,7 +32,7 @@ class RegisterUser(Resource):
             print('user not found, creating new account')
 
             password = args.get('password')
-            pwd_hash = bcrypt.generate_password_hash(password).decode('utf-8')
+            pwd_hash = bcrypt.generate_password_hash(password)
 
             user = User(fname=args.get('fname'), lname=args.get(
                 'lname'), username=username, password=pwd_hash, email=args.get('email'))
