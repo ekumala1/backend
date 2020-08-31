@@ -36,4 +36,5 @@ class LoginUser(Resource):
                 raise BadRequest()
                 return {'response': 'bad password'}
 
+        raise BadRequest()
         return {'response': 'no user found'}
