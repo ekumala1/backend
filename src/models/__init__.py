@@ -11,7 +11,7 @@ class User(Base):
     fname = Column(String)
     lname = Column(String)
     username = Column(String)
-    password = Column(Binary)
+    password = Column(String)
     email = Column(String)
 
     def __str__(self):
