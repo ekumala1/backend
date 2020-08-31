@@ -1,4 +1,5 @@
 from flask_restplus import Namespace, Resource, fields
+from werkzeug.exceptions import BadRequest
 from src import bcrypt, engine, session
 from ..models import User
 
@@ -32,6 +33,7 @@ class LoginUser(Resource):
             if correct:
                 return {'response': 'success'}
             else:
+                raise BadRequest()
                 return {'response': 'bad password'}
 
         return {'response': 'no user found'}
