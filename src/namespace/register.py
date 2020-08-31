@@ -1,4 +1,5 @@
 from flask_restplus import Namespace, Resource, fields
+from werkzeug.exceptions import BadRequest
 from src import bcrypt, engine, session
 from ..models import User
 
@@ -27,6 +28,7 @@ class RegisterUser(Resource):
         if results.count() > 0:
             print('user already found')
 
+            raise BadRequest()
             return {'response': 'failure', 'reason': 'User already exists'}
         else:
             print('user not found, creating new account')
